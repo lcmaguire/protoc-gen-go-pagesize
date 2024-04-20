@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/lcmaguire/protoc-gen-go-pagesize/pagesize";
+
+package pagesize;
+
+// FieldOptions is an extension to google.protobuf.FieldOptions. It allows
+// the addition of validation rules at the field level. These rules can be
+// applied to incoming messages to ensure they meet certain criteria before
+// being processed.
+extend google.protobuf.FieldOptions {
+    optional PageSizeValues field = 1159;
+}
+
+message PageSizeValues {
+    int32 default_page_size = 1;
+    int32 max_page_size = 2;
+}

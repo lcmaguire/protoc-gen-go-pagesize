@@ -1,0 +1,10 @@
+syntax = "proto3";
+package example;
+
+option go_package = "github.com/lcmaguire/protoc-gen-go-pagesize/example";
+
+import "pagesize/pagesize.proto";
+
+message ListExample {
+    int32 page_size = 1 [(pagesize.field).default_page_size= 25, (pagesize.field).max_page_size= 1000];
+}
