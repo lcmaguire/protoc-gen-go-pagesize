@@ -8,3 +8,8 @@ import "pagesize/pagesize.proto";
 message ListExample {
     int32 page_size = 1 [(pagesize.field).default_page_size= 25, (pagesize.field).max_page_size= 1000];
 }
+
+
+message ListAnotherExample {
+    int32 page_size = 1 [(pagesize.field).default_page_size= 25, (pagesize.field).max_page_size= 100];
+}

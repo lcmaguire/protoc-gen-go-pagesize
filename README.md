@@ -1,6 +1,6 @@
 # protoc-gen-go-pagesize
 
-will generate constant values for the default and max for the page_size field within any defined messages.
+will generate constant values for the `default` and `max` for the page_size field within any defined messages.
 
 https://google.aip.dev/158
 
@@ -10,15 +10,32 @@ https://google.aip.dev/158
 go install github.com/lcmaguire/protoc-gen-go-pagesize@latest
 ```
 
-## What can you do with setters that you cant do idiomatically?
+## Usage
 
-by having setters you can then create packages within your organization based upon any naming structures you have for your proto specs.
+```proto
 
-for example if you are following goolges aip's in particular 
+// import the field descriptor.
+import "pagesize/pagesize.proto";
 
-- [AIP-132](https://google.aip.dev/132) for list endpoints 
-- [AIP-158](https://google.aip.dev/158) for pagination.
+message ListExample {
+	// add in the field descriptor
+    int32 page_size = 1 [(pagesize.field).default_page_size = 25, (pagesize.field).max_page_size = 1000];
+}
 
-you can make a package for pagination based upon the func `GetNextPageToken()` in list responses & `SetPageToken(in string)` generated for requests
+```
 
-see [grpcpagination](https://github.com/lcmaguire/grpcpagination) for an example
+output 
+
+```go
+const (
+	// ListExampleDefaultPageSize if the user does not specify page_size (or specifies 0)
+	//
+	// 25 is the value that will be used by the API as specified in https://google.aip.dev/158.
+	ListExampleDefaultPageSize int32 = 25
+
+	// ListExampleMaxPageSize represents the maximum page_size for a ListExample
+	//
+	// if page_size is greater than 1000 it will be coerced down to 1000 as specified in https://google.aip.dev/158.
+	ListExampleMaxPageSize int32 = 1000
+)
+```

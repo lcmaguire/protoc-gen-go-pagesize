@@ -89,7 +89,6 @@ type PageSizeTemplate struct {
 
 const tplate = `
 	const (
-	
 		// {{.MessageName}}DefaultPageSize if the user does not specify page_size (or specifies 0)
 		// 
 		// {{.DefaultPageSize}} is the value that will be used by the API as specified in https://google.aip.dev/158.
